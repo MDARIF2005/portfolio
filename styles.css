@@ -1,0 +1,198 @@
+html { scroll-behavior: smooth; }
+::selection { background: #c9a66b; color: #0b0d12; }
+
+/* ============ Background ============ */
+.aurora {
+  position: fixed; inset: 0; z-index: 0;
+  overflow: hidden; pointer-events: none;
+}
+.aurora span {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(110px);
+  will-change: transform;
+}
+.aurora span:nth-child(1) {
+  width: 46vw; height: 46vw; max-width: 640px; max-height: 640px;
+  background: #1d3550;
+  opacity: .55;
+  top: -18%; left: -12%;
+  animation: drift1 34s ease-in-out infinite;
+}
+.aurora span:nth-child(2) {
+  width: 40vw; height: 40vw; max-width: 560px; max-height: 560px;
+  background: #4a3d22;
+  opacity: .35;
+  bottom: -20%; right: -10%;
+  animation: drift2 42s ease-in-out infinite;
+}
+@keyframes drift1 {
+  0%,100% { transform: translate(0,0) scale(1); }
+  50% { transform: translate(10vw, 6vh) scale(1.08); }
+}
+@keyframes drift2 {
+  0%,100% { transform: translate(0,0); }
+  50% { transform: translate(-9vw, -8vh); }
+}
+
+.bg-grid {
+  position: fixed;
+  inset: -20% 0 0 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 72px 72px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 80%);
+          mask-image: linear-gradient(to bottom, #000 0%, transparent 80%);
+}
+
+/* ============ Navigation ============ */
+#navbar.scrolled {
+  background: rgba(11,13,18,.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,.07);
+}
+.nav-link { position: relative; padding: .5rem .85rem; transition: color .2s; }
+.nav-link::after {
+  content: ""; position: absolute; left: .85rem; right: .85rem; bottom: .2rem;
+  height: 1px; background: #c9a66b;
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .35s ease;
+}
+.nav-link:hover, .nav-link.active { color: #fff; }
+.nav-link:hover::after, .nav-link.active::after { transform: scaleX(1); }
+.mobile-link { color: #e6e8ec; font-size: 1.05rem; }
+.mobile-link:hover { color: #c9a66b; }
+
+/* ============ Typography ============ */
+.eyebrow {
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: #c9a66b;
+}
+.caret {
+  display: inline-block;
+  width: 2px; height: 1.1em;
+  margin-left: 4px; vertical-align: -3px;
+  background: #c9a66b;
+  animation: blink 1s steps(2,start) infinite;
+}
+@keyframes blink { to { visibility: hidden; } }
+
+.section { padding: 4rem 0; }
+
+/* ============ Hero ============ */
+#hero-3d { z-index: 0; }
+.hero-fade {
+  background: radial-gradient(ellipse at 70% 40%, transparent 25%, #0b0d12 90%);
+  z-index: 1;
+}
+.scroll-line {
+  width: 1px; height: 44px;
+  background: linear-gradient(to bottom, #c9a66b, transparent);
+  animation: drip 2.4s ease-in-out infinite;
+  transform-origin: top;
+}
+@keyframes drip {
+  0% { transform: scaleY(0); opacity: 0; }
+  40% { transform: scaleY(1); opacity: 1; }
+  100% { transform: scaleY(1); opacity: 0; }
+}
+
+/* Marquee */
+.marquee { width: max-content; animation: marquee 44s linear infinite; }
+.marquee:hover { animation-play-state: paused; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* ============ Buttons & links ============ */
+.btn-solid, .btn-outline {
+  display: inline-flex; align-items: center;
+  padding: .9rem 1.6rem;
+  border-radius: .5rem;
+  font-size: .95rem; font-weight: 500;
+  transition: background .25s, color .25s, border-color .25s, transform .25s;
+}
+.btn-solid { background: #c9a66b; color: #0b0d12; }
+.btn-solid:hover { background: #d9b97f; transform: translateY(-1px); }
+.btn-outline { border: 1px solid rgba(255,255,255,.2); color: #e6e8ec; }
+.btn-outline:hover { border-color: #c9a66b; color: #c9a66b; }
+.link {
+  color: #e6e8ec;
+  border-bottom: 1px solid rgba(201,166,107,.5);
+  transition: color .2s, border-color .2s;
+}
+.link:hover { color: #c9a66b; border-color: #c9a66b; }
+
+/* Makes the whole card clickable through its link (opens in a new tab) */
+.stretch::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.stretch:focus-visible { outline: 1px solid #c9a66b; outline-offset: 4px; }
+
+/* ============ Cards & chips ============ */
+.card, .project {
+  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 1rem;
+  position: relative;
+  transition: border-color .4s, box-shadow .4s;
+}
+.card:hover, .project:hover {
+  border-color: rgba(201,166,107,.45);
+  box-shadow: 0 24px 50px -30px rgba(0,0,0,.8);
+}
+.chip {
+  font-size: .75rem;
+  padding: .3rem .7rem;
+  border-radius: .375rem;
+  color: #cfd4dc;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.1);
+  transition: border-color .3s, color .3s;
+}
+.chip:hover { border-color: rgba(201,166,107,.5); color: #fff; }
+
+.li-dot { position: relative; padding-left: 1.1rem; }
+.li-dot::before {
+  content: ""; position: absolute; left: 0; top: .6em;
+  width: 5px; height: 5px; border-radius: 9999px; background: #c9a66b;
+}
+
+/* ============ Scroll-fly 3D cards ============
+   script.js writes transform + opacity on each scroll frame. */
+.fly {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+  transition: border-color .4s, box-shadow .4s !important;
+}
+
+/* ============ Scroll reveal for text ============ */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 1s ease, transform 1s cubic-bezier(.2,.7,.1,1);
+}
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ============ Reduced motion ============ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .reveal { opacity: 1; transform: none; }
+}
+
+/* ============ Phones ============ */
+@media (max-width: 767px) {
+  .section { padding: 4rem 0; }
+  .aurora span { filter: blur(80px); opacity: .35; }
+  .bg-grid { background-size: 48px 48px; }
+  .card, .project { backdrop-filter: none; }
+}

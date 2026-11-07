@@ -337,7 +337,7 @@ if (copyBtn) {
 }
 
 // ============ Typewriter ============
-const phrases = ['AI & ML Developer', 'Full-Stack Web Developer', 'Android App Developer'];
+const phrases = ['AI/ML Engineer', 'Data Analyst', 'Full-Stack Developer', 'Android App Developer'];
 const typedEl = document.getElementById('typed');
 if (reduceMotion) {
   typedEl.textContent = phrases[0];

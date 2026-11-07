@@ -240,10 +240,14 @@ if (finePointer && !reduceMotion) {
   })();
 }
 
-// ============ Contact form: sends the message to my inbox via FormSubmit ============
-// FormSubmit is a free form-to-email service (no account needed). The first message
-// triggers a one-time activation email to the address below; click "Activate" in it.
+// ============ Contact form ============
+// Use Formspree, Web3Forms, or FormSubmit.
+// If you create a free form on Formspree (https://formspree.io), paste your form ID below:
+const FORMSPREE_ID = ''; // e.g. 'mbljzkpq'
+// Or if you get a Web3Forms access key (https://web3forms.com), paste it here:
+const WEB3FORMS_KEY = ''; // e.g. 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
 const CONTACT_EMAIL = 'arifsmart2005@gmail.com';
+
 const form = document.getElementById('contact-form');
 if (form) {
   const note = document.getElementById('form-note');
@@ -287,35 +291,58 @@ if (form) {
     setNote('Sending your message...', '');
 
     try {
-      // FormData with no custom headers keeps this a "simple" request, so the browser
-      // does not need a CORS pre-check before sending it.
-      const payload = new FormData(form);
-      payload.set('_subject', subject);
-      payload.set('_replyto', email);
-      payload.set('_template', 'table');
-      payload.set('_captcha', 'false');
-      const res = await fetch(`https://formsubmit.co/ajax/${CONTACT_EMAIL}`, {
+      let endpoint = '';
+      let bodyData = {};
+
+      if (FORMSPREE_ID) {
+        endpoint = `https://formspree.io/f/${FORMSPREE_ID}`;
+        bodyData = { name, email, subject, message };
+      } else if (WEB3FORMS_KEY) {
+        endpoint = 'https://api.web3forms.com/submit';
+        bodyData = { access_key: WEB3FORMS_KEY, name, email, subject, message };
+      } else {
+        endpoint = `https://formsubmit.co/ajax/${CONTACT_EMAIL}`;
+        bodyData = {
+          name,
+          email,
+          _subject: subject,
+          _replyto: email,
+          message,
+          _template: 'table',
+          _captcha: 'false'
+        };
+      }
+
+      const res = await fetch(endpoint, {
         method: 'POST',
-        headers: { 'Accept': 'application/json' },
-        body: payload
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(bodyData)
       });
+
       const data = await res.json().catch(() => ({}));
-      if (!res.ok || data.success === 'false' || data.success === false) throw new Error(data.message || 'Request failed');
+      if (!res.ok || data.success === 'false' || data.success === false) {
+        throw new Error(data.message || 'Service unavailable');
+      }
 
       form.reset();
-      setNote('Thank you, your message has been sent. I will reply to the email address you gave.', 'ok');
+      setNote('Thank you! Your message has been sent successfully.', 'ok');
     } catch (err) {
       console.error('Contact form error:', err);
-      // A TypeError here means the browser blocked or could not reach FormSubmit
-      // (address not activated yet, offline, or the service is down).
-      const reason = err.name === 'TypeError'
-        ? 'FormSubmit did not answer. If you are the site owner, make sure the address is activated.'
-        : err.message;
-      // Backup: open the visitor's email app with the message filled in
-      const body = `${message}\n\n${name}\n${email}`;
-      window.location.href =
-        `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      setNote(`Could not send directly (${reason}) Opening your email app instead, or write to ${CONTACT_EMAIL}.`, 'error');
+      // Fallback: Open Gmail Web compose or visitor's default email client
+      const mailBody = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+      const mailSubject = encodeURIComponent(subject);
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${CONTACT_EMAIL}&su=${mailSubject}&body=${mailBody}`;
+
+      // Open Gmail directly in a new tab
+      const win = window.open(gmailUrl, '_blank');
+      if (!win) {
+        window.location.href = `mailto:${CONTACT_EMAIL}?subject=${mailSubject}&body=${mailBody}`;
+      }
+
+      setNote('Opened Gmail with your message ready to send, or email directly to arifsmart2005@gmail.com.', 'ok');
     } finally {
       submitBtn.disabled = false;
       submitBtn.textContent = 'Send message';

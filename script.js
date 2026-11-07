@@ -331,18 +331,7 @@ if (form) {
       setNote('Thank you! Your message has been sent successfully.', 'ok');
     } catch (err) {
       console.error('Contact form error:', err);
-      // Fallback: Open Gmail Web compose or visitor's default email client
-      const mailBody = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
-      const mailSubject = encodeURIComponent(subject);
-      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${CONTACT_EMAIL}&su=${mailSubject}&body=${mailBody}`;
-
-      // Open Gmail directly in a new tab
-      const win = window.open(gmailUrl, '_blank');
-      if (!win) {
-        window.location.href = `mailto:${CONTACT_EMAIL}?subject=${mailSubject}&body=${mailBody}`;
-      }
-
-      setNote('Opened Gmail with your message ready to send, or email directly to arifsmart2005@gmail.com.', 'ok');
+      setNote('Unable to send message. Please email directly to arifsmart2005@gmail.com.', 'error');
     } finally {
       submitBtn.disabled = false;
       submitBtn.textContent = 'Send message';

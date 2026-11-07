@@ -240,12 +240,9 @@ if (finePointer && !reduceMotion) {
   })();
 }
 
-// ============ Contact form ============
-// Use Formspree, Web3Forms, or FormSubmit.
-// If you create a free form on Formspree (https://formspree.io), paste your form ID below:
-const FORMSPREE_ID = ''; // e.g. 'mbljzkpq'
-// Or if you get a Web3Forms access key (https://web3forms.com), paste it here:
-const WEB3FORMS_KEY = ''; // e.g. 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+// ============ Contact form: powered by Web3Forms ============
+// Access key configured from Web3Forms (stored also in .env)
+const WEB3FORMS_KEY = 'fe3e7bd8-d0dc-4f60-a002-82966e44f0e1';
 const CONTACT_EMAIL = 'arifsmart2005@gmail.com';
 
 const form = document.getElementById('contact-form');
@@ -291,44 +288,22 @@ if (form) {
     setNote('Sending your message...', '');
 
     try {
-      let endpoint = '';
-      let bodyData = {};
+      const formData = new FormData(form);
+      formData.append('access_key', WEB3FORMS_KEY);
+      if (subject) formData.set('subject', subject);
 
-      if (FORMSPREE_ID) {
-        endpoint = `https://formspree.io/f/${FORMSPREE_ID}`;
-        bodyData = { name, email, subject, message };
-      } else if (WEB3FORMS_KEY) {
-        endpoint = 'https://api.web3forms.com/submit';
-        bodyData = { access_key: WEB3FORMS_KEY, name, email, subject, message };
-      } else {
-        endpoint = `https://formsubmit.co/ajax/${CONTACT_EMAIL}`;
-        bodyData = {
-          name,
-          email,
-          _subject: subject,
-          _replyto: email,
-          message,
-          _template: 'table',
-          _captcha: 'false'
-        };
-      }
-
-      const res = await fetch(endpoint, {
+      const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(bodyData)
+        body: formData
       });
 
       const data = await res.json().catch(() => ({}));
-      if (!res.ok || data.success === 'false' || data.success === false) {
-        throw new Error(data.message || 'Service unavailable');
+      if (res.ok && (data.success === true || data.success === 'true')) {
+        form.reset();
+        setNote('Thank you! Your message has been sent successfully.', 'ok');
+      } else {
+        throw new Error(data.message || 'Submission failed');
       }
-
-      form.reset();
-      setNote('Thank you! Your message has been sent successfully.', 'ok');
     } catch (err) {
       console.error('Contact form error:', err);
       setNote('Unable to send message. Please email directly to arifsmart2005@gmail.com.', 'error');

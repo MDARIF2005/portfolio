@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Activate contact form</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background: #0b0d12; color: #e6e8ec; margin: 0; padding: 3rem 1.25rem; line-height: 1.6; }
+    main { max-width: 34rem; margin: 0 auto; }
+    h1 { font-size: 1.5rem; margin: 0 0 1rem; }
+    ol { padding-left: 1.2rem; color: #b6bcc8; }
+    li { margin-bottom: .5rem; }
+    button { margin-top: 1.5rem; padding: .85rem 1.5rem; border: 0; border-radius: .5rem; background: #c9a66b; color: #0b0d12; font-size: 1rem; font-weight: 600; cursor: pointer; }
+    code { background: rgba(255,255,255,.08); padding: .1rem .35rem; border-radius: .25rem; }
+    .note { margin-top: 2rem; font-size: .9rem; color: #8f98a8; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Activate the portfolio contact form</h1>
+  <ol>
+    <li>Press the button below once. It sends a normal form post to FormSubmit.</li>
+    <li>FormSubmit shows a page saying an activation email was sent.</li>
+    <li>Open <code>arifsmart2005@gmail.com</code> (check spam too) and click <strong>Activate Form</strong>.</li>
+    <li>After that, the form on your portfolio sends straight to your inbox.</li>
+  </ol>
+
+  <form action="https://formsubmit.co/arifsmart2005@gmail.com" method="POST">
+    <input type="hidden" name="name" value="Activation test" />
+    <input type="hidden" name="email" value="arifsmart2005@gmail.com" />
+    <input type="hidden" name="message" value="Activating the portfolio contact form." />
+    <input type="hidden" name="_subject" value="Portfolio form activation" />
+    <input type="hidden" name="_captcha" value="false" />
+    <button type="submit">Send activation email</button>
+  </form>
+
+  <p class="note">You only need this page once. After activating, you can delete <code>activate-form.html</code>.</p>
+</main>
+</body>
+</html>

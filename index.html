@@ -5,30 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MD Arif | Portfolio</title>
   <meta name="description" content="MD Arif, Computer Science (AI &amp; ML) student at HITAM, Hyderabad. Work on AI, web and Android projects." />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'system-ui', 'sans-serif'],
-          },
-          colors: {
-            night: '#0b0d12',
-            panel: '#11141b',
-            edge: 'rgba(255,255,255,0.08)',
-            text: '#e6e8ec',
-            muted: '#8f98a8',
-            gold: '#c9a66b',
-            steel: '#6f9fb0',
-          },
-        },
-      },
-    };
-  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="tailwind.css" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body class="bg-night text-text font-sans antialiased overflow-x-hidden">
@@ -36,6 +16,7 @@
   <!-- Background layers -->
   <div class="aurora" aria-hidden="true"><span></span><span></span></div>
   <div class="bg-grid" aria-hidden="true"></div>
+  <div id="cursor-glow" aria-hidden="true"></div>
   <div id="progress" class="fixed top-0 left-0 h-[2px] w-0 z-[60] bg-gold"></div>
 
   <!-- NAVBAR -->
@@ -109,25 +90,39 @@
     </section>
 
     <!-- MARQUEE -->
-    <div class="relative border-y border-edge py-5 overflow-hidden">
-      <div class="marquee flex gap-14 whitespace-nowrap text-lg text-white/30">
+    <div class="relative border-y border-edge py-6 overflow-hidden space-y-4">
+      <div class="marquee flex whitespace-nowrap text-2xl sm:text-3xl font-semibold text-white/25">
         <span>Python</span><span>TensorFlow</span><span>React</span><span>Flask</span><span>Firebase</span><span>OpenCV</span><span>Android</span><span>Django</span><span>Gemini API</span><span>NumPy</span>
         <span>Python</span><span>TensorFlow</span><span>React</span><span>Flask</span><span>Firebase</span><span>OpenCV</span><span>Android</span><span>Django</span><span>Gemini API</span><span>NumPy</span>
+      </div>
+      <div class="marquee marquee-rev flex whitespace-nowrap text-2xl sm:text-3xl font-semibold outline-text" aria-hidden="true">
+        <span>Java</span><span>JavaScript</span><span>Node.js</span><span>scikit-learn</span><span>Pandas</span><span>SQLite</span><span>Tableau</span><span>Google Cloud</span><span>Android Studio</span><span>SQL</span>
+        <span>Java</span><span>JavaScript</span><span>Node.js</span><span>scikit-learn</span><span>Pandas</span><span>SQLite</span><span>Tableau</span><span>Google Cloud</span><span>Android Studio</span><span>SQL</span>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="border-b border-edge">
+      <div class="mx-auto max-w-6xl px-6 lg:px-10 grid grid-cols-2 md:grid-cols-4">
+        <div class="stat reveal"><p class="stat-num"><span data-count="6.5" data-dec="1">6.5</span><small>months</small></p><p class="stat-label">Live-project experience</p></div>
+        <div class="stat reveal" style="transition-delay:.08s"><p class="stat-num"><span data-count="5">5</span></p><p class="stat-label">Featured projects</p></div>
+        <div class="stat reveal" style="transition-delay:.16s"><p class="stat-num"><span data-count="3">3</span></p><p class="stat-label">Hackathons</p></div>
+        <div class="stat reveal" style="transition-delay:.24s"><p class="stat-num"><span data-count="6">6</span></p><p class="stat-label">Certifications</p></div>
       </div>
     </div>
 
     <!-- ABOUT -->
     <section id="about" class="section">
       <div class="mx-auto max-w-6xl px-6 lg:px-10">
-        <p class="eyebrow reveal">About</p>
+        <p class="eyebrow reveal"><span>01</span>About</p>
         <div class="grid lg:grid-cols-12 gap-12 mt-6">
           <h2 class="lg:col-span-6 text-3xl sm:text-4xl font-semibold tracking-tight text-white leading-tight reveal">
             Practical software, with machine learning where it helps.
           </h2>
           <div class="lg:col-span-5 lg:col-start-8 space-y-5 leading-relaxed reveal">
             <p>I'm a B.Tech Computer Science (AI &amp; ML) student at the Hyderabad Institute of Technology and Management, expected to graduate in 2027.</p>
-            <p>From January to July 2026 I worked as an intern at Galactic Solutions Pvt. Ltd. on the live project KodmiLabs Career Mall, contributing to development, testing and debugging. I completed the project with a Live Project Completion Certificate.</p>
-            <p>I also lead the HITAM AI Club, organising technical sessions, hands-on projects and hackathon teams.</p>
+            <p>From January to July 2026 I worked as an intern at Galactic Solutions Pvt. Ltd. on the live project KodmiLabs Career Mall, contributing to development, floor operations, testing and debugging. I completed the project with a Live Project Completion Certificate.</p>
+            <p>I also serve as Unit Lead of the AI/ML Team at HITAM AI Club, organising technical sessions, hands-on projects and hackathon teams.</p>
           </div>
         </div>
 
@@ -142,17 +137,17 @@
     <!-- EXPERIENCE & EDUCATION -->
     <section id="experience" class="section">
       <div class="mx-auto max-w-6xl px-6 lg:px-10">
-        <p class="eyebrow reveal">Experience</p>
+        <p class="eyebrow reveal"><span>02</span>Experience</p>
         <h2 class="mt-6 text-3xl sm:text-4xl font-semibold tracking-tight text-white reveal">Work and education</h2>
 
         <div class="mt-10 grid lg:grid-cols-2 gap-6">
           <article class="fly card p-7">
             <p class="text-xs uppercase tracking-wider text-gold">Jan 2026 – Jul 2026</p>
-            <h3 class="mt-3 text-lg font-semibold text-white">Intern, Galactic Solutions Pvt. Ltd.</h3>
+            <h3 class="mt-3 text-lg font-semibold text-white">Intern (Floor Operations &amp; Dev), Galactic Solutions Pvt. Ltd.</h3>
             <p class="text-muted mt-1">KodmiLabs Career Mall, live project</p>
             <ul class="mt-5 space-y-2 leading-relaxed list-disc pl-5 marker:text-gold">
               <li>Built features from assigned requirements on a real production project.</li>
-              <li>Worked with the team to solve development issues and meet deliverables.</li>
+              <li>Handled floor operations, coordinating with teammates to resolve development issues and meet milestones.</li>
               <li>Took part in implementation, testing and debugging.</li>
             </ul>
           </article>
@@ -166,13 +161,13 @@
 
           <article class="fly card p-7">
             <p class="text-xs uppercase tracking-wider text-gold">2025 – Present</p>
-            <h3 class="mt-3 text-lg font-semibold text-white">Lead, HITAM AI Club</h3>
-            <p class="mt-5 leading-relaxed">Plan and run technical sessions, projects and events, and encourage students to take part in hackathons.</p>
+            <h3 class="mt-3 text-lg font-semibold text-white">Unit Lead of AI/ML Team, HITAM AI Club</h3>
+            <p class="mt-5 leading-relaxed">Direct the AI/ML unit — planning and running technical sessions, hands-on projects, workshops, and mentoring student hackathon teams.</p>
           </article>
 
         </div>
 
-        <p class="eyebrow mt-16">Education</p>
+        <p class="eyebrow reveal mt-16"><span>02.1</span>Education</p>
         <div class="mt-10 grid md:grid-cols-3 gap-4">
           <article class="fly card p-7">
             <p class="text-xs uppercase tracking-wider text-gold">Aug 2023 – Jul 2027</p>
@@ -198,7 +193,7 @@
     <!-- SKILLS -->
     <section id="skills" class="section">
       <div class="mx-auto max-w-6xl px-6 lg:px-10">
-        <p class="eyebrow reveal">Skills</p>
+        <p class="eyebrow reveal"><span>03</span>Skills</p>
         <h2 class="mt-6 text-3xl sm:text-4xl font-semibold tracking-tight text-white reveal">Technical skills</h2>
 
         <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -215,7 +210,7 @@
     <!-- PROJECTS -->
     <section id="projects" class="section">
       <div class="mx-auto max-w-6xl px-6 lg:px-10">
-        <p class="eyebrow reveal">Projects</p>
+        <p class="eyebrow reveal"><span>04</span>Projects</p>
         <h2 class="mt-6 text-3xl sm:text-4xl font-semibold tracking-tight text-white reveal">Selected work</h2>
 
         <div class="mt-10 grid md:grid-cols-6 gap-4">
@@ -269,7 +264,7 @@
     <!-- ACHIEVEMENTS -->
     <section id="achievements" class="section">
       <div class="mx-auto max-w-6xl px-6 lg:px-10">
-        <p class="eyebrow reveal">Recognition</p>
+        <p class="eyebrow reveal"><span>05</span>Recognition</p>
         <h2 class="mt-6 text-3xl sm:text-4xl font-semibold tracking-tight text-white reveal">Certifications and achievements</h2>
 
         <div class="mt-10 grid md:grid-cols-3 gap-4">
@@ -295,8 +290,9 @@
           <div class="fly card p-7">
             <p class="text-white font-medium mb-5">Leadership</p>
             <ul class="space-y-3 text-sm leading-relaxed">
-              <li class="li-dot">Lead, HITAM AI Club</li>
-              <li class="li-dot">Innovation Ambassador (Advanced Level), MoE's Innovation Cell and AICTE</li>
+              <li class="li-dot">Unit Lead of AI/ML Team, HITAM AI Club</li>
+              <li class="li-dot">Floor Operations, Galactic Solutions Pvt. Ltd.</li>
+              <li class="li-dot">Innovation Ambassador (Advanced Level), MoE's Innovation Cell &amp; AICTE</li>
             </ul>
           </div>
         </div>
@@ -304,25 +300,92 @@
     </section>
 
     <!-- CONTACT -->
-    <section id="contact" class="section pb-20">
-      <div class="mx-auto max-w-4xl px-6 text-center reveal">
-        <p class="eyebrow">Contact</p>
-        <h2 class="mt-6 text-4xl sm:text-6xl font-semibold tracking-tight text-white leading-[1.05]">Let's work together</h2>
-        <p class="mt-6 text-lg text-muted max-w-2xl mx-auto leading-relaxed">I'm open to roles and projects in AI, machine learning and software development. Email is the quickest way to reach me.</p>
+    <section id="contact" class="section pb-24">
+      <div class="mx-auto max-w-6xl px-6 lg:px-10">
+        <p class="eyebrow reveal"><span>06</span>Contact</p>
+        <h2 class="reveal mt-6 text-3xl sm:text-5xl font-semibold tracking-tight text-white leading-[1.08]">Get in touch</h2>
 
-        <div class="mt-12 flex flex-wrap justify-center gap-4">
-          <a href="mailto:arifsmart2005@gmail.com" class="btn-solid">arifsmart2005@gmail.com</a>
-        </div>
+        <div class="mt-12 grid lg:grid-cols-12 gap-12 lg:gap-16">
 
-        <div class="mt-12 flex justify-center gap-8 text-sm">
-          <a href="https://github.com/MDARIF2005" target="_blank" rel="noopener" class="link">GitHub</a>
+          <!-- Details -->
+          <div class="lg:col-span-5 reveal">
+            <p class="leading-relaxed max-w-md">I'm open to roles, internships and projects in AI, machine learning and software development. Send a message or use any of the details below.</p>
+
+            <ul class="mt-10 border-t border-edge">
+              <li class="contact-row">
+                <div class="min-w-0">
+                  <p class="stat-label">Email</p>
+                  <a href="mailto:arifsmart2005@gmail.com" class="contact-value">arifsmart2005@gmail.com</a>
+                </div>
+                <button id="copy-mail" type="button" class="copy-btn shrink-0"><span>Copy email</span></button>
+              </li>
+              <li>
+                <a href="https://github.com/MDARIF2005" target="_blank" rel="noopener" class="contact-row contact-link">
+                  <div class="min-w-0">
+                    <p class="stat-label">GitHub</p>
+                    <span class="contact-value">github.com/MDARIF2005</span>
+                  </div>
+                  <svg class="contact-arrow w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M7 17L17 7M9 7h8v8"/></svg>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.linkedin.com/in/md-arif-b17093301/" target="_blank" rel="noopener" class="contact-row contact-link">
+                  <div class="min-w-0">
+                    <p class="stat-label">LinkedIn</p>
+                    <span class="contact-value">linkedin.com/in/md-arif-b17093301</span>
+                  </div>
+                  <svg class="contact-arrow w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M7 17L17 7M9 7h8v8"/></svg>
+                </a>
+              </li>
+              <li class="contact-row">
+                <div>
+                  <p class="stat-label">Location</p>
+                  <p class="contact-value">Hyderabad, Telangana, India</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Form -->
+          <div class="lg:col-span-7 reveal" style="transition-delay:.1s">
+            <form id="contact-form" class="card p-7 sm:p-9" novalidate>
+              <div class="grid sm:grid-cols-2 gap-5">
+                <div class="field">
+                  <label for="cf-name" class="stat-label">Your name</label>
+                  <input id="cf-name" name="name" type="text" class="input" placeholder="Full name" autocomplete="name" required />
+                </div>
+                <div class="field">
+                  <label for="cf-email" class="stat-label">Your email</label>
+                  <input id="cf-email" name="email" type="email" class="input" placeholder="name@company.com" autocomplete="email" required />
+                </div>
+              </div>
+              <div class="field mt-5">
+                <label for="cf-subject" class="stat-label">Subject</label>
+                <input id="cf-subject" name="subject" type="text" class="input" placeholder="Role, project or question" />
+              </div>
+              <div class="field mt-5">
+                <label for="cf-message" class="stat-label">Message</label>
+                <textarea id="cf-message" name="message" class="input" rows="5" placeholder="How can I help?" required></textarea>
+              </div>
+              <!-- Honeypot: hidden from people, catches spam bots -->
+              <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0" />
+              <div class="mt-7 flex flex-wrap items-center gap-4">
+                <button type="submit" class="btn-solid">Send message</button>
+                <p id="form-note" class="text-sm text-muted" role="status" aria-live="polite">Your message goes straight to my inbox.</p>
+              </div>
+            </form>
+          </div>
+
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="relative z-10 border-t border-edge py-8 text-center text-xs tracking-wide text-muted">
-    MD Arif · <span id="year"></span>
+  <footer class="relative z-10 border-t border-edge">
+    <div class="mx-auto max-w-6xl px-6 lg:px-10 py-8 flex items-center justify-between text-xs tracking-wide text-muted">
+      <span>MD Arif · <span id="year"></span></span>
+      <a href="#top" class="hover:text-white transition-colors">Back to top ↑</a>
+    </div>
   </footer>
 
   <!-- Three.js for the hero -->
